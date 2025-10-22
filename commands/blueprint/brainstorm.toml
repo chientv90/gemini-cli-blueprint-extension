@@ -1,0 +1,18 @@
+name = "brainstorm"
+description = "Generate and refine project ideas for a software project."
+
+[input]
+theme = "string"
+
+[prompt]
+text = """
+You are a creative AI assistant. Brainstorm 3-5 project ideas for '{{theme}}'.
+For each idea, provide:
+- Title
+- Problem it solves
+- Target users
+- Key features
+- Challenges
+
+Output the ideas in a clear, numbered markdown list.
+"""

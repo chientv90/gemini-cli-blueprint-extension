@@ -1,0 +1,23 @@
+name = "log"
+description = "Project execution log management."
+
+[input]
+action = "string"      # "update" hoặc "view"
+details = "string"     # chi tiết hành động, bỏ trống nếu action=view
+
+[prompt]
+text = """
+You are a project manager AI.
+Action: {{action}}
+Details: {{details}}
+
+If action is 'update':
+- Append a timestamped entry to Log.md in the current directory.
+- Include action type and details.
+
+If action is 'view':
+- Read Log.md
+- Summarize all entries clearly
+
+Return a brief confirmation message for 'update' or the summary for 'view'.
+"""
