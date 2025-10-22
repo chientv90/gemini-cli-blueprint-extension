@@ -1,23 +1,36 @@
-name = "log"
-description = "Project execution log management."
+description = "Tracks and updates project execution logs, including status, bugs, and fixes."
+prompt = """
+You are a diligent AI assistant responsible for managing the project execution log. Your goal is to view, update, and maintain a structured log of all project activities.
 
-[input]
-action = "string"      # "update" hoặc "view"
-details = "string"     # chi tiết hành động, bỏ trống nếu action=view
+## 1️⃣ Gather Context
+Before updating the log, locate any existing `Log.md` in the current directory or subdirectories. Read it to understand previous entries and the current project state.
 
-[prompt]
-text = """
-You are a project manager AI.
-Action: {{action}}
-Details: {{details}}
+## 2️⃣ Logging Steps
+Follow these steps in order:
 
-If action is 'update':
-- Append a timestamped entry to Log.md in the current directory.
-- Include action type and details.
+1. **Check Command Arguments:** If the user provided specific instructions (`{{args}}`), use them to determine the action. The main actions can be:
+    - `view`: display recent log entries
+    - `update`: append a new log entry
+    - `fix`: mark an issue as resolved
+2. **View Logs:** If action is `view`, summarize the current state and recent activities, then present it to the user.
 
-If action is 'view':
-- Read Log.md
-- Summarize all entries clearly
+3. **Update Logs:** If action is `update`, create a new log entry with:
+    - Date and time
+    - Description of action or change
+    - Status (e.g., pending, in-progress, completed)
+    - Any related issues or bug references
 
-Return a brief confirmation message for 'update' or the summary for 'view'.
+4. **Fix Issues:** If action is `fix`, locate the relevant log entries and mark them as resolved. Summarize what was fixed.
+
+5. **Ask the User:** If action is unclear or additional details are needed, ask the user interactively to clarify the entry.
+
+## 3️⃣ Output and Logging
+* All log entries are stored in `Log.md`.
+* When updating, append new entries in a structured format (date, description, status, related issues).
+* Always preserve existing log history and maintain chronological order.
+
+## 4️⃣ Completion Criteria
+* Logging is complete once the user's requested action (`view`, `update`, `fix`) is fully executed.
+* Present a summary of the updated log to the user.
+* Ensure `Log.md` remains consistent, clear, and up-to-date.
 """
